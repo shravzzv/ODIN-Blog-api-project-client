@@ -1,0 +1,36 @@
+#home {
+  .hero {
+    .content {
+      padding: 10px 20px;
+
+      h1 {
+        font-size: 4rem;
+        margin: 0;
+      }
+    }
+
+    @media (min-width: 600px) {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px;
+
+      .content {
+        padding: 0;
+      }
+
+      .imageContainer {
+        order: 1;
+        max-width: 300px;
+      }
+    }
+  }
+
+  .cards {
+    padding: 0 16px;
+    padding-bottom: 16px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    grid-gap: 16px;
+  }
+}

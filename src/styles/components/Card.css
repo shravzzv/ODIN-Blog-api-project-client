@@ -1,0 +1,21 @@
+.card {
+  border: 2px solid var(--outline-variant);
+  border-radius: 24px;
+  padding: 40px;
+  text-align: center;
+
+  .imageContainer {
+    max-width: 300px;
+    margin: 0 auto;
+
+    img {
+      border-radius: 24px;
+    }
+  }
+
+  .content {
+    h2 {
+      color: var(--primary);
+    }
+  }
+}
