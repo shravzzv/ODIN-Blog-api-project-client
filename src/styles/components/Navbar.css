@@ -1,0 +1,32 @@
+nav {
+  position: sticky;
+  top: 0;
+  background-color: var(--surface);
+  border-bottom: 1px solid var(--outline-variant);
+
+  ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    padding: 5px 0;
+
+    a {
+      display: inline-block;
+      border-radius: 10px;
+      padding: 10px 15px;
+      text-decoration: none;
+      transition: background-color 300ms ease;
+      color: var(--on-surface-container);
+      font-size: 14px;
+      font-weight: 500;
+
+      &:hover {
+        background-color: var(--primary-container);
+        color: var(--on-primary-container);
+      }
+    }
+  }
+}
