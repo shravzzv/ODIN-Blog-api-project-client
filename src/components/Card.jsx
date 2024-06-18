@@ -1,15 +1,16 @@
 import '../styles/components/Card.css'
+import { Link } from 'react-router-dom'
 
 export default function Card() {
   return (
     <div className='card'>
       <div className='imageContainer'>
-        <a href='#'>
+        <Link to='/post/someId'>
           <img
             src='https://web.dev/static/blog/web-platform-05-2024/hero.png'
             alt='card cover'
           />
-        </a>
+        </Link>
       </div>
       <div className='content'>
         <h2>What is new in the web</h2>
