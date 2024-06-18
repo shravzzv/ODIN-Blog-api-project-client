@@ -196,3 +196,36 @@ button {
     }
   }
 }
+
+form {
+  margin: auto;
+  max-width: max-content;
+  background-color: var(--surface-container-low);
+  padding: 20px;
+  border-radius: 20px;
+
+  .formControl,
+  label,
+  input,
+  textarea {
+    display: block;
+  }
+
+  .formControl {
+    margin-bottom: 10px;
+  }
+
+  label {
+    margin-bottom: 5px;
+  }
+
+  input,
+  textarea {
+    padding: 10px 15px;
+    border: 1px solid var(--on-surface);
+    border-radius: 12px;
+    resize: vertical;
+    color: inherit;
+    background-color: var(--surface-container);
+  }
+}
