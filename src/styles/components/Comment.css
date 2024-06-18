@@ -1,0 +1,33 @@
+.comment {
+  border-radius: 20px;
+  padding: 16px;
+  box-shadow: var(--elevation-level-2);
+  background-color: var(--surface-container-low);
+
+  .author {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+
+    .profilePicContainer {
+      img {
+        border-radius: 50%;
+        width: 32px;
+        height: 32px;
+        object-fit: cover;
+      }
+    }
+
+    .time {
+      font-size: 14px;
+    }
+  }
+
+  .content {
+    margin: 0;
+  }
+
+  + .comment {
+    margin-top: 10px;
+  }
+}
