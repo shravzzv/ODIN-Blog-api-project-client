@@ -4,13 +4,14 @@ import Home from './pages/Home.jsx'
 import SignIn from './pages/SignIn.jsx'
 import SignUp from './pages/SignUp.jsx'
 import Post from './pages/Post.jsx'
+import Error from './pages/Error.jsx'
 
 export default function Router() {
   const router = createBrowserRouter([
     {
       path: '/',
       element: <Layout />,
-      // todo: Add error and exceptions pages
+      errorElement: <Error />,
       children: [
         {
           path: '/',
@@ -28,7 +29,15 @@ export default function Router() {
           path: '/post/:id',
           element: <Post />,
         },
+        {
+          path: '*',
+          element: <Error />,
+        },
       ],
+    },
+    {
+      path: '*',
+      element: <Error />,
     },
   ])
 

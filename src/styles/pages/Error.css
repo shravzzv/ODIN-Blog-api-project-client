@@ -1,0 +1,29 @@
+.error {
+  text-align: center;
+
+  .homeLink {
+    color: var(--primary);
+    display: inline-block;
+    text-decoration: underline;
+  }
+
+  h1 {
+    font-size: 6rem;
+    color: var(--primary);
+  }
+}
+
+@media (max-width: 767px) {
+  .error {
+    h1 {
+      border: 1px solid var(--primary);
+      border-radius: 20px;
+    }
+  }
+}
+
+@media (min-width: 768px) {
+}
+
+@media (min-width: 1024px) {
+}
