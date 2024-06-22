@@ -1,0 +1,20 @@
+#post {
+  padding: 20px;
+
+  .coverImageContainer {
+    img {
+      max-height: 300px;
+      width: 100%;
+      border-radius: 24px;
+      object-fit: cover;
+    }
+  }
+
+  button.addComment {
+    margin-bottom: 20px;
+  }
+
+  @media (min-width: 600px) {
+    padding: 32px;
+  }
+}

@@ -1,0 +1,231 @@
+@import url(./designTokens.css);
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
+    Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  background-color: var(--surface);
+  color: var(--on-surface);
+
+  #root {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+
+    main {
+      flex: 1;
+    }
+  }
+}
+
+img {
+  max-width: 100%;
+}
+
+button {
+  font-size: 14px;
+  height: 40px;
+  border-radius: var(--shape-corner-full);
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: none;
+  cursor: pointer;
+  background-color: var(--surface-container);
+  color: var(--on-surface-variant);
+  position: relative;
+
+  /* the state layer */
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: inherit;
+    opacity: 0%;
+    background-color: var(--on-surface-variant);
+    transition: opacity 300ms ease;
+  }
+
+  &:has(svg) {
+    padding-left: 16px;
+
+    & svg {
+      width: 18px;
+      fill: var(--on-surface);
+    }
+  }
+
+  &.elevated {
+    background-color: var(--surface-container-low);
+    color: var(--primary);
+    box-shadow: var(--elevation-level-1);
+    transition: box-shadow 300ms ease;
+
+    & svg {
+      fill: var(--primary);
+    }
+
+    &::after {
+      background-color: var(--primary);
+    }
+
+    &:hover {
+      box-shadow: var(--elevation-level-2);
+    }
+  }
+
+  &.filled {
+    background-color: var(--primary);
+    color: var(--on-primary);
+
+    & svg {
+      fill: var(--on-primary);
+    }
+
+    &::after {
+      background-color: var(--on-primary);
+    }
+  }
+
+  &.filled-tonal {
+    background-color: var(--secondary-container);
+    color: var(--on-secondary-container);
+    transition: box-shadow 300ms ease;
+
+    & svg {
+      fill: var(--on-secondary-container);
+    }
+
+    &::after {
+      background-color: var(--on-secondary-container);
+    }
+
+    &:hover {
+      box-shadow: var(--elevation-level-1);
+    }
+  }
+
+  &.outlined {
+    background-color: var(--surface);
+    color: var(--primary);
+    outline: 1px solid var(--outline);
+
+    & svg {
+      fill: var(--primary);
+    }
+
+    &::after {
+      background-color: var(--primary);
+    }
+  }
+
+  &.text {
+    background-color: transparent;
+    color: var(--primary);
+
+    & svg {
+      fill: var(--primary);
+    }
+
+    &::after {
+      background-color: var(--primary);
+    }
+  }
+
+  &.icon {
+    padding: 0;
+    width: 40px;
+    height: 40px;
+    border-radius: var(--shape-corner-full);
+    background-color: var(--surface-container);
+
+    svg {
+      width: 24px;
+      fill: var(--primary);
+    }
+  }
+
+  &.fab {
+    height: 56px;
+    margin: 16px;
+    font-weight: 500;
+    width: max-content;
+    color: var(--on-primary-container);
+    box-shadow: var(--elevation-level-3);
+    border-radius: var(--shape-corner-medium);
+    background-color: var(--primary-container);
+
+    & svg {
+      width: 24px;
+      fill: var(--on-primary-container);
+    }
+
+    &:hover {
+      box-shadow: var(--elevation-level-4);
+    }
+  }
+
+  &:disabled {
+    opacity: 38%;
+    pointer-events: none;
+  }
+
+  &:hover::after {
+    opacity: 8%;
+  }
+
+  &:focus::after {
+    opacity: 10%;
+  }
+
+  &:active::after {
+    opacity: 10%;
+  }
+
+  &[draggable='true'] {
+    cursor: grab;
+
+    &:active::after {
+      cursor: grabbing;
+      opacity: 16%;
+    }
+  }
+}
+
+form {
+  margin: auto;
+  max-width: max-content;
+  background-color: var(--surface-container-low);
+  padding: 20px;
+  border-radius: 20px;
+
+  .formControl,
+  label,
+  input,
+  textarea {
+    display: block;
+  }
+
+  .formControl {
+    margin-bottom: 10px;
+  }
+
+  label {
+    margin-bottom: 5px;
+  }
+
+  input,
+  textarea {
+    padding: 10px 15px;
+    border: 1px solid var(--on-surface);
+    border-radius: 12px;
+    resize: vertical;
+    color: inherit;
+    background-color: var(--surface-container);
+  }
+}

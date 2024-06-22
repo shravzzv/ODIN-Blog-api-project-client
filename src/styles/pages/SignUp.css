@@ -1,0 +1,7 @@
+#signup {
+  padding: 24px;
+
+  @media (min-width: 600px) {
+    padding: 32px;
+  }
+}
