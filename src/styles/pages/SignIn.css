@@ -1,6 +1,11 @@
 #signin {
   padding: 24px;
 
+  span.error {
+    font-size: 14px;
+    color: var(--error);
+  }
+
   @media (min-width: 600px) {
     padding: 32px;
   }
