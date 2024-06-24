@@ -1,9 +1,15 @@
 import { useState } from 'react'
 import '../styles/pages/SignUp.css'
 import axios from 'axios'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Navigate } from 'react-router-dom'
+import PropTypes from 'prop-types'
 
-export default function SignUp() {
+SignUp.propTypes = {
+  isAuthenticated: PropTypes.bool,
+  setIsAuthenticated: PropTypes.func,
+}
+
+export default function SignUp({ isAuthenticated, setIsAuthenticated }) {
   const [data, setData] = useState({
     firstName: '',
     lastName: '',
@@ -34,10 +40,15 @@ export default function SignUp() {
       })
       const token = res.data.token
       localStorage.setItem('token', JSON.stringify(token))
+      setIsAuthenticated(true)
       navigate('/')
     } catch (error) {
       setErrors(error.response.data.errors)
     }
+  }
+
+  if (isAuthenticated) {
+    return <Navigate to={'/'} replace />
   }
 
   return (

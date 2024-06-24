@@ -1,9 +1,13 @@
 import '../styles/components/Navbar.css'
 import { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
+import PropTypes from 'prop-types'
 
-export default function Navbar() {
-  const [isAuthenticated, setIsAuthenticated] = useState(false)
+Navbar.propTypes = {
+  isAuthenticated: PropTypes.bool,
+}
+
+export default function Navbar({ isAuthenticated }) {
   const [activeLink, setActiveLink] = useState(1)
   const { pathname } = useLocation()
 
@@ -11,7 +15,8 @@ export default function Navbar() {
     if (pathname == '/') setActiveLink(1)
     if (pathname == '/signin') setActiveLink(2)
     if (pathname == '/signup') setActiveLink(3)
-    if (!['/', '/signin', '/signup'].includes(pathname)) {
+    if (pathname == '/profile') setActiveLink(4)
+    if (!['/', '/signin', '/signup', '/profile'].includes(pathname)) {
       setActiveLink(null)
     }
   }, [pathname])
@@ -28,6 +33,17 @@ export default function Navbar() {
             Home
           </Link>
         </li>
+        {isAuthenticated && (
+          <li>
+            <Link
+              to='/profile'
+              className={activeLink == 4 ? 'active' : ''}
+              onClick={() => setActiveLink(4)}
+            >
+              Profile
+            </Link>
+          </li>
+        )}
         {!isAuthenticated && (
           <>
             <li>

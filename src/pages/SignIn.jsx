@@ -1,9 +1,15 @@
 import { useState } from 'react'
 import '../styles/pages/SignIn.css'
 import axios from 'axios'
-import { useNavigate } from 'react-router-dom'
+import { Navigate, useNavigate } from 'react-router-dom'
+import PropTypes from 'prop-types'
 
-export default function SignIn() {
+SignIn.propTypes = {
+  isAuthenticated: PropTypes.bool,
+  setIsAuthenticated: PropTypes.func,
+}
+
+export default function SignIn({ isAuthenticated, setIsAuthenticated }) {
   const [data, setData] = useState({
     username: '',
     password: '',
@@ -29,10 +35,15 @@ export default function SignIn() {
       })
       const token = res.data.token
       localStorage.setItem('token', JSON.stringify(token))
+      setIsAuthenticated(true)
       navigate('/')
     } catch (error) {
       setErrors(error.response.data.errors)
     }
+  }
+
+  if (isAuthenticated) {
+    return <Navigate to={'/'} replace />
   }
 
   return (
