@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import '../styles/pages/SignUp.css'
 import axios from 'axios'
 import { useNavigate, Navigate } from 'react-router-dom'
@@ -20,6 +20,7 @@ export default function SignUp({ isAuthenticated, setIsAuthenticated }) {
     bio: '',
   })
   const [errors, setErrors] = useState(null)
+  const formRef = useRef(null)
   const navigate = useNavigate()
 
   const handleChange = (e) => {
@@ -33,11 +34,17 @@ export default function SignUp({ isAuthenticated, setIsAuthenticated }) {
   const handleSubmit = async (e) => {
     try {
       e.preventDefault()
-      const res = await axios.post('http://localhost:3000/users/signup', data, {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      })
+      const formData = new FormData(formRef.current)
+
+      const res = await axios.post(
+        'http://localhost:3000/users/signup',
+        formData,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        }
+      )
       const token = res.data.token
       localStorage.setItem('token', JSON.stringify(token))
       localStorage.setItem('userId', JSON.stringify(res.data.userId))
@@ -54,7 +61,7 @@ export default function SignUp({ isAuthenticated, setIsAuthenticated }) {
 
   return (
     <main id='signup'>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} ref={formRef}>
         <div className='formControl'>
           <label htmlFor='firstName'>First Name*</label>
           <input
@@ -171,6 +178,16 @@ export default function SignUp({ isAuthenticated, setIsAuthenticated }) {
                 {errors.find((error) => error.path === 'passwordConfirm').msg}
               </span>
             )}
+        </div>
+
+        <div className='formControl'>
+          <label htmlFor='file'>Profile Picture</label>
+          <input type='file' name='file' id='file' accept='image/*' />
+          {errors && errors.find((error) => error.path === 'file') && (
+            <span className='error'>
+              {errors.find((error) => error.path === 'file').msg}
+            </span>
+          )}
         </div>
 
         <div className='formControl'>

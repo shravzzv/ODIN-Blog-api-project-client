@@ -14,6 +14,24 @@ export default function Profile({ isAuthenticated, setIsAuthenticated }) {
   const [isLoading, setIsLoading] = useState(true)
   const [data, setData] = useState(null)
   const [error, setError] = useState(null)
+
+  const [formData, setFormData] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    username: '',
+    bio: '',
+  })
+  const [formErrors, setFormErrors] = useState(null)
+
+  const handleChange = (e) => {
+    const { name, value } = e.target
+    setFormData({
+      ...data,
+      [name]: value,
+    })
+  }
+
   const updateDialogRef = useRef(null)
   const deleteDialogRef = useRef(null)
 
@@ -22,7 +40,15 @@ export default function Profile({ isAuthenticated, setIsAuthenticated }) {
       try {
         const userId = JSON.parse(localStorage.getItem('userId'))
         const res = await axios.get(`http://localhost:3000/users/${userId}`)
-        setData(res.data.user)
+        const data = res.data.user
+        setData(data)
+        setFormData({
+          firstName: data.firstName || '',
+          lastName: data.lastName || '',
+          email: data.email || '',
+          username: data.username || '',
+          bio: data.bio || '',
+        })
       } catch (error) {
         setError(true)
       } finally {
@@ -40,8 +66,27 @@ export default function Profile({ isAuthenticated, setIsAuthenticated }) {
     navigate('/')
   }
 
-  const handleUpdate = () => {
-    //
+  const handleUpdateFormSubmit = async (e) => {
+    try {
+      e.preventDefault()
+      const userId = JSON.parse(localStorage.getItem('userId'))
+      const token = JSON.parse(localStorage.getItem('token'))
+      const res = await axios.put(
+        `http://localhost:3000/users/${userId}`,
+        formData,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: 'Bearer ' + token,
+          },
+        }
+      )
+      setData(res.data.updatedUser)
+      setFormErrors(null)
+      updateDialogRef.current.close()
+    } catch (error) {
+      setFormErrors(error.response.data.errors)
+    }
   }
 
   const handleDelete = async () => {
@@ -139,13 +184,121 @@ export default function Profile({ isAuthenticated, setIsAuthenticated }) {
       </div>
 
       <dialog id='updateProfile' ref={updateDialogRef}>
-        <p>Update Profile</p>
-        <button
-          className='elevated'
-          onClick={() => updateDialogRef.current.close()}
-        >
-          close
-        </button>
+        <p className='headline'>Update Profile</p>
+
+        <form onSubmit={handleUpdateFormSubmit}>
+          <div className='formControl'>
+            <label htmlFor='firstName'>First Name*</label>
+            <input
+              type='text'
+              name='firstName'
+              id='firstName'
+              placeholder='John'
+              minLength={3}
+              maxLength={20}
+              required
+              value={formData.firstName}
+              onChange={handleChange}
+            />
+            {formErrors &&
+              formErrors.find((error) => error.path === 'firstName') && (
+                <span className='error'>
+                  {formErrors.find((error) => error.path === 'firstName').msg}
+                </span>
+              )}
+          </div>
+
+          <div className='formControl'>
+            <label htmlFor='lastName'>Last Name*</label>
+            <input
+              type='text'
+              name='lastName'
+              id='lastName'
+              placeholder='Doe'
+              minLength={3}
+              maxLength={20}
+              required
+              value={formData.lastName}
+              onChange={handleChange}
+            />
+            {formErrors &&
+              formErrors.find((error) => error.path === 'lastName') && (
+                <span className='error'>
+                  {formErrors.find((error) => error.path === 'lastName').msg}
+                </span>
+              )}
+          </div>
+
+          <div className='formControl'>
+            <label htmlFor='email'>Email*</label>
+            <input
+              type='email'
+              name='email'
+              id='email'
+              placeholder='johndoe@mail.com'
+              required
+              autoComplete='on'
+              value={formData.email}
+              onChange={handleChange}
+            />
+            {formErrors &&
+              formErrors.find((error) => error.path === 'email') && (
+                <span className='error'>
+                  {formErrors.find((error) => error.path === 'email').msg}
+                </span>
+              )}
+          </div>
+
+          <div className='formControl'>
+            <label htmlFor='username'>Username*</label>
+            <input
+              type='text'
+              name='username'
+              id='username'
+              placeholder='johnDo3'
+              minLength={3}
+              maxLength={20}
+              required
+              value={formData.username}
+              onChange={handleChange}
+            />
+            {formErrors &&
+              formErrors.find((error) => error.path === 'username') && (
+                <span className='error'>
+                  {formErrors.find((error) => error.path === 'username').msg}
+                </span>
+              )}
+          </div>
+
+          <div className='formControl'>
+            <label htmlFor='bio'>Bio</label>
+            <textarea
+              name='bio'
+              id='bio'
+              cols='24'
+              rows='5'
+              value={formData.bio}
+              onChange={handleChange}
+            ></textarea>
+          </div>
+
+          <div className='actions'>
+            <button
+              type='button'
+              className='elevated'
+              onClick={() => {
+                updateDialogRef.current.close()
+                setFormErrors(null)
+              }}
+            >
+              close
+            </button>
+
+            <button className='filled' type='submit'>
+              Submit
+            </button>
+          </div>
+        </form>
       </dialog>
 
       <dialog id='deleteProfile' ref={deleteDialogRef}>

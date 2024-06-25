@@ -234,6 +234,11 @@ form {
     color: inherit;
     background-color: var(--surface-container);
   }
+
+  span.error {
+    font-size: 14px;
+    color: var(--error);
+  }
 }
 
 dialog[open] {
