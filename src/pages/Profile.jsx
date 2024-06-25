@@ -34,6 +34,7 @@ export default function Profile({ isAuthenticated, setIsAuthenticated }) {
 
   const updateDialogRef = useRef(null)
   const deleteDialogRef = useRef(null)
+  const updateFormRef = useRef(null)
 
   useEffect(() => {
     const fetchData = async () => {
@@ -69,18 +70,22 @@ export default function Profile({ isAuthenticated, setIsAuthenticated }) {
   const handleUpdateFormSubmit = async (e) => {
     try {
       e.preventDefault()
+
+      const updatedFormData = new FormData(updateFormRef.current)
       const userId = JSON.parse(localStorage.getItem('userId'))
       const token = JSON.parse(localStorage.getItem('token'))
+
       const res = await axios.put(
         `http://localhost:3000/users/${userId}`,
-        formData,
+        updatedFormData,
         {
           headers: {
-            'Content-Type': 'application/json',
+            'Content-Type': 'multipart/form-data',
             Authorization: 'Bearer ' + token,
           },
         }
       )
+
       setData(res.data.updatedUser)
       setFormErrors(null)
       updateDialogRef.current.close()
@@ -186,7 +191,7 @@ export default function Profile({ isAuthenticated, setIsAuthenticated }) {
       <dialog id='updateProfile' ref={updateDialogRef}>
         <p className='headline'>Update Profile</p>
 
-        <form onSubmit={handleUpdateFormSubmit}>
+        <form onSubmit={handleUpdateFormSubmit} ref={updateFormRef}>
           <div className='formControl'>
             <label htmlFor='firstName'>First Name*</label>
             <input
@@ -269,6 +274,21 @@ export default function Profile({ isAuthenticated, setIsAuthenticated }) {
                 </span>
               )}
           </div>
+
+          <div className='formControl'>
+            <label htmlFor='file'>Update Profile Picture</label>
+            <input type='file' name='file' id='file' accept='image/*' />
+            {formErrors &&
+              formErrors.find((error) => error.path === 'file') && (
+                <span className='error'>
+                  {formErrors.find((error) => error.path === 'file').msg}
+                </span>
+              )}
+          </div>
+
+          {data.profilePicUrl && (
+            <input type='hidden' name='imgUrl' value={data.profilePicUrl} />
+          )}
 
           <div className='formControl'>
             <label htmlFor='bio'>Bio</label>

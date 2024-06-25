@@ -3,11 +3,12 @@
   text-align: center;
 
   .profilePicContainer {
-    max-width: 250px;
     margin: auto;
 
     img {
       object-fit: cover;
+      width: 250px;
+      height: 250px;
       border-radius: 50%;
       box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
     }
