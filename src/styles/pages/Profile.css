@@ -1,0 +1,23 @@
+#profile {
+  padding: 20px;
+  text-align: center;
+
+  .profilePicContainer {
+    max-width: 250px;
+    margin: auto;
+
+    img {
+      object-fit: cover;
+      border-radius: 50%;
+      box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    }
+  }
+
+  .actions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+}

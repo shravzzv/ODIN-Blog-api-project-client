@@ -40,6 +40,7 @@ export default function SignUp({ isAuthenticated, setIsAuthenticated }) {
       })
       const token = res.data.token
       localStorage.setItem('token', JSON.stringify(token))
+      localStorage.setItem('userId', JSON.stringify(res.data.userId))
       setIsAuthenticated(true)
       navigate('/')
     } catch (error) {

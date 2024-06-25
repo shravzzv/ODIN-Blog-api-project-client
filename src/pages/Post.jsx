@@ -32,18 +32,18 @@ export default function Post() {
 
   if (isLoading) {
     return (
-      <>
+      <main id='post'>
         <p>Loading...</p>
-      </>
+      </main>
     )
   }
 
   if (error) {
     return (
-      <>
+      <main id='post'>
         <p>An error occured while fetching the post!</p>
         <p>{error}</p>
-      </>
+      </main>
     )
   }
 

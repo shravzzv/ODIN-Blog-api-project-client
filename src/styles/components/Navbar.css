@@ -3,6 +3,7 @@ nav {
   top: 0;
   background-color: var(--surface);
   border-bottom: 1px solid var(--outline-variant);
+  z-index: 1;
 
   ul {
     list-style-type: none;
