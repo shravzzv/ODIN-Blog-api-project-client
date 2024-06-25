@@ -205,10 +205,15 @@ button {
 
 form {
   margin: auto;
-  max-width: max-content;
   background-color: var(--surface-container-low);
   padding: 20px;
   border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  max-width: 400px;
+  gap: 10px;
 
   .formControl,
   label,
@@ -218,11 +223,12 @@ form {
   }
 
   .formControl {
-    margin-bottom: 10px;
+    width: 100%;
   }
 
   label {
     margin-bottom: 5px;
+    text-align: left;
   }
 
   input,
@@ -233,11 +239,32 @@ form {
     resize: vertical;
     color: inherit;
     background-color: var(--surface-container);
+    width: 88%;
+  }
+
+  .formControl:has(input[type='file']) {
+    max-width: 100%;
+    overflow: hidden;
+  }
+  input[type='file'] {
   }
 
   span.error {
     font-size: 14px;
     color: var(--error);
+  }
+
+  @media (min-width: 768px) {
+    /* max-width: 400px; */
+    /* 
+    .formControl {
+      max-width: 370px;
+    }
+
+    input,
+    textarea {
+      max-width: 370px;
+    } */
   }
 }
 
