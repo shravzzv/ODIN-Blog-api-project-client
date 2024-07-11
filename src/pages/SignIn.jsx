@@ -28,11 +28,15 @@ export default function SignIn({ isAuthenticated, setIsAuthenticated }) {
   const handleSubmit = async (e) => {
     try {
       e.preventDefault()
-      const res = await axios.post('http://localhost:3000/users/signin', data, {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      })
+      const res = await axios.post(
+        'https://odin-blog-api-project-api.adaptable.app/users/signin',
+        data,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      )
       const token = res.data.token
       localStorage.setItem('token', JSON.stringify(token))
       localStorage.setItem('userId', JSON.stringify(res.data.userId))

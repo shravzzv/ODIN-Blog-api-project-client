@@ -37,7 +37,7 @@ export default function SignUp({ isAuthenticated, setIsAuthenticated }) {
       const formData = new FormData(formRef.current)
 
       const res = await axios.post(
-        'http://localhost:3000/users/signup',
+        'https://odin-blog-api-project-api.adaptable.app/signup',
         formData,
         {
           headers: {

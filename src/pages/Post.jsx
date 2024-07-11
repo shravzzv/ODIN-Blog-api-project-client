@@ -22,7 +22,9 @@ export default function Post({ isAuthenticated }) {
     const fetchData = async () => {
       try {
         setIsLoading(true)
-        const res = await axios.get(`http://localhost:3000/posts/${id}`)
+        const res = await axios.get(
+          `https://odin-blog-api-project-api.adaptable.app/posts/${id}`
+        )
         setPost(res.data)
         setComments(res.data.comments)
       } catch (error) {
@@ -40,7 +42,7 @@ export default function Post({ isAuthenticated }) {
       const token = JSON.parse(localStorage.getItem('token'))
 
       const res = await axios.post(
-        `http://localhost:3000/comments/${id}`,
+        `https://odin-blog-api-project-api.adaptable.app/comments/${id}`,
         { content: comment },
         {
           headers: {
@@ -61,12 +63,15 @@ export default function Post({ isAuthenticated }) {
     try {
       const token = JSON.parse(localStorage.getItem('token'))
 
-      await axios.delete(`http://localhost:3000/comments/${id}`, {
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: 'Bearer ' + token,
-        },
-      })
+      await axios.delete(
+        `https://odin-blog-api-project-api.adaptable.app/comments/${id}`,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: 'Bearer ' + token,
+          },
+        }
+      )
 
       const updatedComments = comments.filter((comment) => comment._id !== id)
       setComments(updatedComments)

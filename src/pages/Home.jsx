@@ -8,7 +8,9 @@ export default function Home() {
 
   useEffect(() => {
     const fetchPosts = async () => {
-      const res = await axios.get('http://localhost:3000/posts')
+      const res = await axios.get(
+        'https://odin-blog-api-project-api.adaptable.app/posts'
+      )
       setPosts(res.data)
     }
     fetchPosts()
