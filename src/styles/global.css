@@ -246,25 +246,10 @@ form {
     max-width: 100%;
     overflow: hidden;
   }
-  input[type='file'] {
-  }
 
   span.error {
     font-size: 14px;
     color: var(--error);
-  }
-
-  @media (min-width: 768px) {
-    /* max-width: 400px; */
-    /* 
-    .formControl {
-      max-width: 370px;
-    }
-
-    input,
-    textarea {
-      max-width: 370px;
-    } */
   }
 }
 

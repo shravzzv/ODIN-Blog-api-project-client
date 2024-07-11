@@ -42,7 +42,7 @@ export default function Router() {
         },
         {
           path: '/post/:id',
-          element: <Post />,
+          element: <Post isAuthenticated={isAuthenticated} />,
         },
         {
           path: '/profile',

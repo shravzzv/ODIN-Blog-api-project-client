@@ -2,12 +2,22 @@ import '../styles/components/Comment.css'
 import PropTypes from 'prop-types'
 
 Comment.propTypes = {
+  id: PropTypes.string,
   content: PropTypes.string,
   author: PropTypes.object,
   updatedAt: PropTypes.string,
+  showActions: PropTypes.bool,
+  remove: PropTypes.func,
 }
 
-export default function Comment({ content, author, updatedAt }) {
+export default function Comment({
+  id,
+  content,
+  author,
+  updatedAt,
+  showActions,
+  remove,
+}) {
   const getDateAgo = (date) => {
     const now = new Date()
     const diff = now - date
@@ -49,6 +59,13 @@ export default function Comment({ content, author, updatedAt }) {
         <p className='time'>{getDateAgo(new Date(updatedAt))}</p>
       </div>
       <p className='content'>{content}</p>
+      {showActions && (
+        <div className='actions'>
+          <button className='outlined' onClick={() => remove(id)}>
+            Delete
+          </button>
+        </div>
+      )}
     </div>
   )
 }
