@@ -16,6 +16,12 @@ body {
       flex: 1;
     }
   }
+
+  &:has(dialog[open]) {
+    filter: blur(15px);
+    position: fixed;
+    overflow: hidden;
+  }
 }
 
 img {
@@ -199,10 +205,15 @@ button {
 
 form {
   margin: auto;
-  max-width: max-content;
   background-color: var(--surface-container-low);
   padding: 20px;
   border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  max-width: 400px;
+  gap: 10px;
 
   .formControl,
   label,
@@ -212,11 +223,12 @@ form {
   }
 
   .formControl {
-    margin-bottom: 10px;
+    width: 100%;
   }
 
   label {
     margin-bottom: 5px;
+    text-align: left;
   }
 
   input,
@@ -227,5 +239,73 @@ form {
     resize: vertical;
     color: inherit;
     background-color: var(--surface-container);
+    width: 88%;
+  }
+
+  .formControl:has(input[type='file']) {
+    max-width: 100%;
+    overflow: hidden;
+  }
+
+  span.error {
+    font-size: 14px;
+    color: var(--error);
+  }
+}
+
+dialog[open] {
+  min-width: 280px;
+  max-width: 560px;
+  padding: 24px;
+  border-radius: var(--shape-corner-extra-large);
+  background-color: var(--surface-container-high);
+  box-shadow: var(--elevation-level-3);
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  z-index: 1;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  margin: 0;
+
+  p {
+    margin: 0;
+    padding: 0;
+  }
+
+  .icon {
+    margin-bottom: 16px;
+    fill: var(--secondary);
+  }
+
+  .headline {
+    margin-bottom: 16px;
+    color: var(--on-surface);
+    line-height: 32px;
+    font-size: 24px;
+    font-weight: 400;
+  }
+
+  .supportingText {
+    margin-bottom: 24px;
+    color: var(--on-surface-variant);
+    font-size: 14px;
+    font-weight: 400;
+  }
+
+  .actions {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+  }
+
+  &::backdrop {
+    backdrop-filter: blur(15px);
+    animation: fadeIn 500ms ease-in-out;
   }
 }

@@ -10,7 +10,7 @@ export default function Footer() {
             We want to help you build beautiful, accessible, fast, and secure
             websites that work cross-browser, and for all of your users. This
             site is our home for content to help you on that journey, written by
-            members of the Chrome team, and external experts.
+            members of the team, and external experts.
           </p>
         </div>
 
@@ -18,10 +18,20 @@ export default function Footer() {
           <p className='heading'>Contribute</p>
           <ul>
             <li>
-              <a href='#'>File a bug</a>
+              <a
+                href='https://github.com/shravzzv/ODIN-Blog-api-project-client/issues/new/choose'
+                target='_blank'
+              >
+                File a bug
+              </a>
             </li>
             <li>
-              <a href='#'>See open issues</a>
+              <a
+                href='https://github.com/shravzzv/ODIN-Blog-api-project-client/issues'
+                target='_blank'
+              >
+                See open issues
+              </a>
             </li>
           </ul>
         </div>
@@ -30,13 +40,25 @@ export default function Footer() {
           <p className='heading'>Related content</p>
           <ul>
             <li>
-              <a href='#'>The Odin Project</a>
+              <a href='https://www.theodinproject.com' target='_blank'>
+                The Odin Project
+              </a>
             </li>
             <li>
-              <a href='#'>This assignment</a>
+              <a
+                href='https://www.theodinproject.com/lessons/nodejs-blog-api'
+                target='_blank'
+              >
+                This assignment
+              </a>
             </li>
             <li>
-              <a href='#'>Project repository</a>
+              <a
+                href='https://github.com/shravzzv/ODIN-Blog-api-project-client'
+                target='_blank'
+              >
+                Project repository
+              </a>
             </li>
           </ul>
         </div>
@@ -45,16 +67,24 @@ export default function Footer() {
           <p className='heading'>Connect</p>
           <ul>
             <li>
-              <a href='#'>LinkedIn</a>
+              <a href='https://linkedin.com/in/shravzzv/' target='_blank'>
+                LinkedIn
+              </a>
             </li>
             <li>
-              <a href='#'>Instagram</a>
+              <a href='https://instagram.com/shravzzv/' target='_blank'>
+                Instagram
+              </a>
             </li>
             <li>
-              <a href='#'>YouTube</a>
+              <a href='https://youtube.com/@shravzzv' target='_blank'>
+                YouTube
+              </a>
             </li>
             <li>
-              <a href='#'>GitHub</a>
+              <a href='https://github.com/shravzzv' target='_blank'>
+                GitHub
+              </a>
             </li>
           </ul>
         </div>
@@ -74,7 +104,7 @@ export default function Footer() {
           </ul>
         </div>
         <div className='right'>
-          <a href='#'>Home</a>
+          <a href='/'>Home</a>
         </div>
       </div>
     </footer>

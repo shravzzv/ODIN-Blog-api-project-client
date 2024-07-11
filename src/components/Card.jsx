@@ -1,23 +1,31 @@
 import '../styles/components/Card.css'
 import { Link } from 'react-router-dom'
+import PropTypes from 'prop-types'
 
-export default function Card() {
+Card.propTypes = {
+  coverImgUrl: PropTypes.string,
+  title: PropTypes.string,
+  content: PropTypes.string,
+  _id: PropTypes.string,
+}
+
+export default function Card({ coverImgUrl, title, content, _id }) {
   return (
     <div className='card'>
       <div className='imageContainer'>
-        <Link to='/post/someId'>
+        <Link to={`/post/${_id}`}>
           <img
-            src='https://web.dev/static/blog/web-platform-05-2024/hero.png'
-            alt='card cover'
+            src={
+              coverImgUrl ||
+              'https://web.dev/static/blog/web-platform-05-2024/hero.png'
+            }
+            alt={title}
           />
         </Link>
       </div>
       <div className='content'>
-        <h2>What is new in the web</h2>
-        <p>
-          What is new in Baseline this year, and about the new tools to help you
-          make better use of Baseline.
-        </p>
+        <h2>{title}</h2>
+        <p>{content.substring(0, 100)}...</p>
       </div>
     </div>
   )

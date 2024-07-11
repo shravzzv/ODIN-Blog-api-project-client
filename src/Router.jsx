@@ -5,12 +5,17 @@ import SignIn from './pages/SignIn.jsx'
 import SignUp from './pages/SignUp.jsx'
 import Post from './pages/Post.jsx'
 import Error from './pages/Error.jsx'
+import Profile from './pages/Profile.jsx'
+import { useState } from 'react'
 
 export default function Router() {
+  const token = JSON.parse(localStorage.getItem('token'))
+  const [isAuthenticated, setIsAuthenticated] = useState(token ? true : false)
+
   const router = createBrowserRouter([
     {
       path: '/',
-      element: <Layout />,
+      element: <Layout isAuthenticated={isAuthenticated} />,
       errorElement: <Error />,
       children: [
         {
@@ -19,15 +24,34 @@ export default function Router() {
         },
         {
           path: '/signin',
-          element: <SignIn />,
+          element: (
+            <SignIn
+              isAuthenticated={isAuthenticated}
+              setIsAuthenticated={setIsAuthenticated}
+            />
+          ),
         },
         {
           path: '/signup',
-          element: <SignUp />,
+          element: (
+            <SignUp
+              isAuthenticated={isAuthenticated}
+              setIsAuthenticated={setIsAuthenticated}
+            />
+          ),
         },
         {
           path: '/post/:id',
-          element: <Post />,
+          element: <Post isAuthenticated={isAuthenticated} />,
+        },
+        {
+          path: '/profile',
+          element: (
+            <Profile
+              isAuthenticated={isAuthenticated}
+              setIsAuthenticated={setIsAuthenticated}
+            />
+          ),
         },
         {
           path: '*',

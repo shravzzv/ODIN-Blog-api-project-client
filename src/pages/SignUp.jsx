@@ -1,13 +1,67 @@
+import { useRef, useState } from 'react'
 import '../styles/pages/SignUp.css'
+import axios from 'axios'
+import { useNavigate, Navigate } from 'react-router-dom'
+import PropTypes from 'prop-types'
 
-export default function SignUp() {
-  const handleSubmit = (e) => {
-    e.preventDefault()
+SignUp.propTypes = {
+  isAuthenticated: PropTypes.bool,
+  setIsAuthenticated: PropTypes.func,
+}
+
+export default function SignUp({ isAuthenticated, setIsAuthenticated }) {
+  const [data, setData] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    username: '',
+    password: '',
+    passwordConfirm: '',
+    bio: '',
+  })
+  const [errors, setErrors] = useState(null)
+  const formRef = useRef(null)
+  const navigate = useNavigate()
+
+  const handleChange = (e) => {
+    const { name, value } = e.target
+    setData({
+      ...data,
+      [name]: value,
+    })
+  }
+
+  const handleSubmit = async (e) => {
+    try {
+      e.preventDefault()
+      const formData = new FormData(formRef.current)
+
+      const res = await axios.post(
+        'https://odin-blog-api-project-api.adaptable.app/signup',
+        formData,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        }
+      )
+      const token = res.data.token
+      localStorage.setItem('token', JSON.stringify(token))
+      localStorage.setItem('userId', JSON.stringify(res.data.userId))
+      setIsAuthenticated(true)
+      navigate('/')
+    } catch (error) {
+      setErrors(error.response.data.errors)
+    }
+  }
+
+  if (isAuthenticated) {
+    return <Navigate to={'/'} replace />
   }
 
   return (
     <main id='signup'>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} ref={formRef}>
         <div className='formControl'>
           <label htmlFor='firstName'>First Name*</label>
           <input
@@ -18,7 +72,14 @@ export default function SignUp() {
             minLength={3}
             maxLength={20}
             required
+            value={data.firstName}
+            onChange={handleChange}
           />
+          {errors && errors.find((error) => error.path === 'firstName') && (
+            <span className='error'>
+              {errors.find((error) => error.path === 'firstName').msg}
+            </span>
+          )}
         </div>
 
         <div className='formControl'>
@@ -31,7 +92,14 @@ export default function SignUp() {
             minLength={3}
             maxLength={20}
             required
+            value={data.lastName}
+            onChange={handleChange}
           />
+          {errors && errors.find((error) => error.path === 'lastName') && (
+            <span className='error'>
+              {errors.find((error) => error.path === 'lastName').msg}
+            </span>
+          )}
         </div>
 
         <div className='formControl'>
@@ -43,7 +111,14 @@ export default function SignUp() {
             placeholder='johndoe@mail.com'
             required
             autoComplete='on'
+            value={data.email}
+            onChange={handleChange}
           />
+          {errors && errors.find((error) => error.path === 'email') && (
+            <span className='error'>
+              {errors.find((error) => error.path === 'email').msg}
+            </span>
+          )}
         </div>
 
         <div className='formControl'>
@@ -56,7 +131,14 @@ export default function SignUp() {
             minLength={3}
             maxLength={20}
             required
+            value={data.username}
+            onChange={handleChange}
           />
+          {errors && errors.find((error) => error.path === 'username') && (
+            <span className='error'>
+              {errors.find((error) => error.path === 'username').msg}
+            </span>
+          )}
         </div>
 
         <div className='formControl'>
@@ -67,8 +149,16 @@ export default function SignUp() {
             id='password'
             required
             minLength={8}
+            value={data.password}
+            onChange={handleChange}
           />
+          {errors && errors.find((error) => error.path === 'password') && (
+            <span className='error'>
+              {errors.find((error) => error.path === 'password').msg}
+            </span>
+          )}
         </div>
+
         {/* todo: figure out how you're gonna add a password visibility toggle */}
 
         <div className='formControl'>
@@ -79,12 +169,37 @@ export default function SignUp() {
             id='passwordConfirm'
             minLength={8}
             required
+            value={data.passwordConfirm}
+            onChange={handleChange}
           />
+          {errors &&
+            errors.find((error) => error.path === 'passwordConfirm') && (
+              <span className='error'>
+                {errors.find((error) => error.path === 'passwordConfirm').msg}
+              </span>
+            )}
+        </div>
+
+        <div className='formControl'>
+          <label htmlFor='file'>Profile Picture</label>
+          <input type='file' name='file' id='file' accept='image/*' />
+          {errors && errors.find((error) => error.path === 'file') && (
+            <span className='error'>
+              {errors.find((error) => error.path === 'file').msg}
+            </span>
+          )}
         </div>
 
         <div className='formControl'>
           <label htmlFor='bio'>Bio</label>
-          <textarea name='bio' id='bio' cols='24' rows='5'></textarea>
+          <textarea
+            name='bio'
+            id='bio'
+            cols='24'
+            rows='5'
+            value={data.bio}
+            onChange={handleChange}
+          ></textarea>
         </div>
 
         <button className='filled' type='submit'>
