@@ -9,7 +9,7 @@ export default function Home() {
   useEffect(() => {
     const fetchPosts = async () => {
       const res = await axios.get(
-        'https://odin-blog-api-project-api.adaptable.app/posts'
+        'https://odin-blog-api-project-api.glitch.me/posts'
       )
       setPosts(res.data)
     }

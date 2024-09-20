@@ -29,7 +29,7 @@ export default function SignIn({ isAuthenticated, setIsAuthenticated }) {
     try {
       e.preventDefault()
       const res = await axios.post(
-        'https://odin-blog-api-project-api.adaptable.app/users/signin',
+        'https://odin-blog-api-project-api.glitch.me/users/signin',
         data,
         {
           headers: {

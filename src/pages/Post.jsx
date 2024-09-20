@@ -23,7 +23,7 @@ export default function Post({ isAuthenticated }) {
       try {
         setIsLoading(true)
         const res = await axios.get(
-          `https://odin-blog-api-project-api.adaptable.app/posts/${id}`
+          `https://odin-blog-api-project-api.glitch.me/posts/${id}`
         )
         setPost(res.data)
         setComments(res.data.comments)
@@ -42,7 +42,7 @@ export default function Post({ isAuthenticated }) {
       const token = JSON.parse(localStorage.getItem('token'))
 
       const res = await axios.post(
-        `https://odin-blog-api-project-api.adaptable.app/comments/${id}`,
+        `https://odin-blog-api-project-api.glitch.me/comments/${id}`,
         { content: comment },
         {
           headers: {
@@ -64,7 +64,7 @@ export default function Post({ isAuthenticated }) {
       const token = JSON.parse(localStorage.getItem('token'))
 
       await axios.delete(
-        `https://odin-blog-api-project-api.adaptable.app/comments/${id}`,
+        `https://odin-blog-api-project-api.glitch.me/comments/${id}`,
         {
           headers: {
             'Content-Type': 'application/json',
