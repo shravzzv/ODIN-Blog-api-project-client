@@ -41,7 +41,7 @@ export default function Profile({ isAuthenticated, setIsAuthenticated }) {
       try {
         const userId = JSON.parse(localStorage.getItem('userId'))
         const res = await axios.get(
-          `https://odin-blog-api-project-api.adaptable.app/users/${userId}`
+          `https://odin-blog-api-project-api.glitch.me/users/${userId}`
         )
         const data = res.data.user
         setData(data)
@@ -78,7 +78,7 @@ export default function Profile({ isAuthenticated, setIsAuthenticated }) {
       const token = JSON.parse(localStorage.getItem('token'))
 
       const res = await axios.put(
-        `https://odin-blog-api-project-api.adaptable.app/users/${userId}`,
+        `https://odin-blog-api-project-api.glitch.me/users/${userId}`,
         updatedFormData,
         {
           headers: {
@@ -101,7 +101,7 @@ export default function Profile({ isAuthenticated, setIsAuthenticated }) {
       const userId = JSON.parse(localStorage.getItem('userId'))
       const token = JSON.parse(localStorage.getItem('token'))
       await axios.delete(
-        `https://odin-blog-api-project-api.adaptable.app/users/${userId}`,
+        `https://odin-blog-api-project-api.glitch.me/users/${userId}`,
         {
           headers: {
             Authorization: 'Bearer ' + token,
